@@ -16,6 +16,30 @@ let EmojiRegular = "(\\[\\w+\\])"
 let AccountRegular = "[\\u4e00-\\u9fa5a-zA-Z0-9_-]{2,30}"
 let TopicRegular = "#[^#]+#"
 
+extension DispatchQueue {
+    
+    private static var _onceTracker = [String]()
+    
+    public class func once(token: String, block: () -> Void) {
+        objc_sync_enter(self); defer { objc_sync_exit(self) }
+        
+        if _onceTracker.contains(token) {
+            return
+        }
+        
+        _onceTracker.append(token)
+        block()
+    }
+}
+
+func CGFloat_ceil(_ cgfloat: CGFloat) -> CGFloat {
+    #if CGFLOAT_IS_DOUBLE
+        return ceil(cgfloat)
+    #else
+        return CGFloat(ceilf(Float(cgfloat)))
+    #endif
+}
+
 func CTTextAlignmentFromUITextAlignment(_ alignment: NSTextAlignment) -> CTTextAlignment {
     switch alignment {
     case .left: return .left
@@ -23,6 +47,26 @@ func CTTextAlignmentFromUITextAlignment(_ alignment: NSTextAlignment) -> CTTextA
     case .right: return .right
     default: return .natural
     }
+}
+
+let _onceToken = UUID().uuidString
+
+func AccountRegularExpression() -> NSRegularExpression? {
+    var accountRegularExpression: NSRegularExpression?
+    DispatchQueue.once(token: _onceToken) {
+        accountRegularExpression = try? NSRegularExpression(pattern: AccountRegular, options: .caseInsensitive)
+    }
+    return accountRegularExpression
+}
+
+let onceToken = UUID().uuidString
+
+func TopicRegularExpression() -> NSRegularExpression? {
+    var topicRegularExpression: NSRegularExpression?
+    DispatchQueue.once(token: onceToken) {
+        topicRegularExpression = try? NSRegularExpression(pattern: TopicRegular, options: .caseInsensitive)
+    }
+    return topicRegularExpression
 }
 
 class VVeboLabel : UIView {
@@ -93,7 +137,7 @@ class VVeboLabel : UIView {
         //Create a mutable attribute string to set the highlighting
         let string = coloredString.string
         
-        let range = NSRange(location: 0, length: string.lenght)
+        let range = NSRange(location: 0, length: string.length)
         //Define the definition to use
         let definition = [
             kRegexHighlightViewTypeAccount: AccountRegular,
@@ -253,22 +297,134 @@ class VVeboLabel : UIView {
     
     //确保行高一致，计算所需触摸区域
     func draw(framesetter: CTFramesetter, attributedString: NSAttributedString, textRange: CFRange, in rect: CGRect, context: CGContext) {
+        let path = CGMutablePath()
+        path.addRect(rect)
+        let frame = CTFramesetterCreateFrame(framesetter, textRange, path, nil)
         
+        let lines = CTFrameGetLines(frame)
+        let numberOfLines = CFArrayGetCount(lines)
+        var truncateLastLine = false //tailMode
+
+        var lineOrigins = [CGPoint](repeating: .zero, count: numberOfLines)
+        CTFrameGetLineOrigins(frame, CFRange(location: 0, length: numberOfLines), &lineOrigins)
+
+        for lineIndex in 0 ..< numberOfLines {
+            var lineOrigin = lineOrigins[lineIndex]
+            lineOrigin = CGPoint(x: CGFloat_ceil(lineOrigin.x), y: CGFloat_ceil(lineOrigin.y))
+
+            context.textPosition = lineOrigin
+            let line = CFArrayGetValueAtIndex(lines, lineIndex)
+            
+            var descent: CGFloat = 0.0
+            var ascent: CGFloat = 0.0
+            var lineLeading: CGFloat = 0
+            CTLineGetTypographicBounds(line as! CTLine, &ascent, &descent, &lineLeading)
+            
+            // Adjust pen offset for flush depending on text alignment
+            var flushFactor = NSTextAlignment.left
+            var penOffset: CGFloat = 0
+            var y: CGFloat = 0
+            
+            if lineIndex == numberOfLines - 1 && truncateLastLine {
+                // Check if the range of text in the last line reaches the end of the full attributed string
+                let lastLineRange = CTLineGetStringRange(line as! CTLine)
+                
+                if !(lastLineRange.length == 0 && lastLineRange.location == 0) && lastLineRange.location + lastLineRange.length < textRange.location + textRange.length {
+                    // Get correct truncationType and attribute position
+                    let truncationType = CTLineTruncationType.end
+                    let truncationAttributePosition = lastLineRange.location
+                    
+                    let truncationTokenString = "\\u2026"
+
+                    var truncationTokenStringAttributes = attributedString.attributes(at: truncationAttributePosition, effectiveRange: nil)
+                    
+                    let attributedTokenString = NSAttributedString(string: truncationTokenString, attributes: truncationTokenStringAttributes)
+                    let truncationToken = CTLineCreateWithAttributedString(attributedTokenString)
+                    
+                    // Append truncationToken to the string
+                    // because if string isn't too long, CT wont add the truncationToken on it's own
+                    // There is no change of a double truncationToken because CT only add the token if it removes characters (and the one we add will go first)
+                    let truncationString = attributedString.attributedSubstring(from: NSRange(location: lastLineRange.location, length: lastLineRange.length)).mutableCopy() as! NSMutableAttributedString
+                    if lastLineRange.length > 0 {
+                        // Remove any newline at the end (we don't want newline space between the text and the truncation token). There can only be one, because the second would be on the next line.
+
+                        let lastCharacter = (truncationString.string as NSString).character(at: (lastLineRange.length - 1))
+
+                        if CharacterSet.newlines.hasMember(inPlane: UInt8(lastCharacter)) {
+                            truncationString.deleteCharacters(in: NSRange(location: (lastLineRange.length - 1), length: 1))
+                        }
+                    }
+                    truncationString.append(attributedTokenString)
+                    let truncationLine = CTLineCreateWithAttributedString(truncationString)
+                    
+                    // Truncate the line in case it is too long.
+                    var truncatedLine = CTLineCreateTruncatedLine(truncationLine, Double(rect.width), truncationType, truncationToken)
+                    if truncatedLine == nil {
+                        // If the line is not as wide as the truncationToken, truncatedLine is NULL
+//                        truncatedLine = CFRetain(truncationToken)
+                    }
+
+                    penOffset = CGFloat(CTLineGetPenOffsetForFlush(truncatedLine!, CGFloat(flushFactor.rawValue), Double(rect.width)))
+                    y = lineOrigin.y - descent - self.font.descender
+                    context.textPosition = CGPoint(x: penOffset, y: y)
+
+                    CTLineDraw(truncatedLine!, context)
+                } else {
+                    penOffset = CGFloat(CTLineGetPenOffsetForFlush(line as! CTLine, CGFloat(flushFactor.rawValue), Double(rect.width)))
+                    y = lineOrigin.y - descent - self.font.descender
+                    context.textPosition = CGPoint(x: penOffset, y: y)
+                    CTLineDraw(line as! CTLine, context)
+                }
+            } else {
+                penOffset = CGFloat(CTLineGetPenOffsetForFlush(line as! CTLine, CGFloat(flushFactor.rawValue), Double(rect.width)))
+                y = lineOrigin.y - descent - self.font.descender
+                context.textPosition = CGPoint(x: penOffset, y: y)
+                CTLineDraw(line as! CTLine, context)
+            }
+            if !highlighting && superview != nil {
+                let runs = CTLineGetGlyphRuns(line as! CTLine)
+                for j in 0 ..< CFArrayGetCount(runs) {
+                    var runAscent: CGFloat = 0
+                    var runDescent: CGFloat = 0
+                    let run = CFArrayGetValueAtIndex(runs, j)
+                    let attributes = CTRunGetAttributes(run as! CTRun) as! [String: Any]
+                    
+                    if (attributes["CTForegroundColor"] as! CGColor) != textColor.cgColor
+                        && framesDict != nil {
+                        let range = CTRunGetStringRange(run as! CTRun)
+                        var runRect = CGRect()
+                        runRect.size.width = CGFloat(CTRunGetTypographicBounds(run as! CTRun, CFRangeMake(0,0), &runAscent, &runDescent, nil))
+                        let offset = CTLineGetOffsetForStringIndex(line as! CTLine, range.location, nil)
+                        let height = runAscent
+                        runRect = CGRect(x: lineOrigin.x + offset, y: (self.frame.height + 5) - y - height + runDescent / 2, width: runRect.width, height: height)
+                        let nRange = NSRange(location: range.location, length: range.length)
+                        framesDict?[NSStringFromRange(nRange)] = runRect
+                    }
+                }
+            }
+        }
     }
     
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    public func clear() {
+        drawFlag = Int(arc4random())
+        self.text = ""
+        labelImageView.image = nil
+        highlightImageView.image = nil
+        removeSubviewExcept(tag: .min)
     }
     
-    
-    
-    
-    
+    func removeSubviewExcept(tag: Int) {
+        for subview in subviews where subview.tag != tag {
+            if let imageView = subview as? UIImageView {
+                imageView.image = nil
+            }
+            subview.removeFromSuperview()
+        }
+    }
     
     public func debugDraw() {
         guard let framesDict = framesDict else { return }
-
+        
         for rect in framesDict.values {
             let temp = UIView(frame: rect)
             let n = UInt32(255)
@@ -277,23 +433,71 @@ class VVeboLabel : UIView {
         }
     }
     
-    public func clear() {
-        
+    func highlightWord() {
+        highlighting = true
+//        [self setText:_text];
     }
-    
+
     private func backToNormal() {
-        //    if (!highlighting) {
-        //    return
-        //    }
-        //    highlighting = NO
-        //    currentRange = NSMakeRange(-1, -1)
-        //    highlightImageView.image = nil
+        if !highlighting {
+            return
+        }
+        highlighting = false
+        currentRange = NSRange(location: -1, length: -1)
+        highlightImageView.image = nil
     }
     
     public func touchPoint(_ point: CGPoint) -> Bool {
-        return true
+        guard let framesDict = framesDict else {
+            return false
+        }
+        for (key, rect) in framesDict where rect.contains(point) {
+            let range = NSRangeFromString(key)
+            guard let matches = AccountRegularExpression()?.matches(in: self.text ?? "", options: [], range: NSRange(location: 0, length: self.text?.length ?? 0)) else { continue }
+            for match in matches {
+                if range.location != -1 && range.location >= match.range.location && range.length+range.location<=match.range.length+match.range.location {
+                    return true
+                }
+            }
+            guard let _matches = TopicRegularExpression()?.matches(in: text ?? "", options: [], range: NSRange(location: 0, length: text?.length ?? 0)) else { continue }
+            for match in _matches {
+                if range.location != -1 && range.location>=match.range.location && range.length+range.location<=match.range.length+match.range.location {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let framesDict = framesDict else {
+            return
+        }
+        let location = touches.first?.location(in: self) ?? .zero
+        for (key, rect) in framesDict where rect.contains(location) {
+            var range = NSRangeFromString(key)
+            range = NSRange(location: range.location, length: range.length - 1)
+            currentRange = range
+            highlightWord()
+        }
     }
     
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        guard highlighting else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.backToNormal()
+        }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        if highlighting {
+            backToNormal()
+        }
+    }
+
+
     override func removeFromSuperview() {
         highlightColors?.removeAll()
         highlightColors = nil
@@ -302,6 +506,10 @@ class VVeboLabel : UIView {
         highlightImageView.image = nil
         labelImageView.image = nil
         super.removeFromSuperview()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     deinit {
