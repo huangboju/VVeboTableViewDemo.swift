@@ -16,6 +16,11 @@
 		D85621CB1E84F9C1008EFB1B /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85621C91E84F9BD008EFB1B /* Kingfisher.framework */; };
 		D85621CC1E84F9C1008EFB1B /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D85621C91E84F9BD008EFB1B /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D85621D21E84FA13008EFB1B /* VVeboLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85621D11E84FA13008EFB1B /* VVeboLabel.swift */; };
+		D8C681EF1E86B22A00367414 /* VVeboTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C681EE1E86B22A00367414 /* VVeboTableViewCell.swift */; };
+		D8C681F41E87AB0900367414 /* corner_circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C681F11E87AB0900367414 /* corner_circle@2x.png */; };
+		D8C681F51E87AB0900367414 /* t_comments@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C681F21E87AB0900367414 /* t_comments@2x.png */; };
+		D8C681F61E87AB0900367414 /* t_repost@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C681F31E87AB0900367414 /* t_repost@2x.png */; };
+		D8C681F91E87AB8C00367414 /* UIScreen+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C681F81E87AB8C00367414 /* UIScreen+Additions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +61,11 @@
 		D85621C91E84F9BD008EFB1B /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		D85621D11E84FA13008EFB1B /* VVeboLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VVeboLabel.swift; sourceTree = "<group>"; };
 		D85621D31E84FA3C008EFB1B /* Bridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridging.h; sourceTree = "<group>"; };
+		D8C681EE1E86B22A00367414 /* VVeboTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VVeboTableViewCell.swift; sourceTree = "<group>"; };
+		D8C681F11E87AB0900367414 /* corner_circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "corner_circle@2x.png"; path = "Resources/corner_circle@2x.png"; sourceTree = "<group>"; };
+		D8C681F21E87AB0900367414 /* t_comments@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "t_comments@2x.png"; path = "Resources/t_comments@2x.png"; sourceTree = "<group>"; };
+		D8C681F31E87AB0900367414 /* t_repost@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "t_repost@2x.png"; path = "Resources/t_repost@2x.png"; sourceTree = "<group>"; };
+		D8C681F81E87AB8C00367414 /* UIScreen+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScreen+Additions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +109,8 @@
 		D85621A71E84F81B008EFB1B /* VVeboTableViewDemo */ = {
 			isa = PBXGroup;
 			children = (
+				D8C681F71E87AB7000367414 /* Support */,
+				D8C681F01E87AA2F00367414 /* Resources */,
 				D85621D01E84F9E7008EFB1B /* Views */,
 				D85621A81E84F81B008EFB1B /* AppDelegate.swift */,
 				D85621AA1E84F81B008EFB1B /* ViewController.swift */,
@@ -132,8 +144,27 @@
 			isa = PBXGroup;
 			children = (
 				D85621D11E84FA13008EFB1B /* VVeboLabel.swift */,
+				D8C681EE1E86B22A00367414 /* VVeboTableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		D8C681F01E87AA2F00367414 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D8C681F11E87AB0900367414 /* corner_circle@2x.png */,
+				D8C681F21E87AB0900367414 /* t_comments@2x.png */,
+				D8C681F31E87AB0900367414 /* t_repost@2x.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		D8C681F71E87AB7000367414 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				D8C681F81E87AB8C00367414 /* UIScreen+Additions.swift */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,8 +252,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D85621B31E84F81B008EFB1B /* LaunchScreen.storyboard in Resources */,
+				D8C681F51E87AB0900367414 /* t_comments@2x.png in Resources */,
+				D8C681F61E87AB0900367414 /* t_repost@2x.png in Resources */,
 				D85621B01E84F81B008EFB1B /* Assets.xcassets in Resources */,
 				D85621AE1E84F81B008EFB1B /* Main.storyboard in Resources */,
+				D8C681F41E87AB0900367414 /* corner_circle@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,6 +274,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8C681F91E87AB8C00367414 /* UIScreen+Additions.swift in Sources */,
+				D8C681EF1E86B22A00367414 /* VVeboTableViewCell.swift in Sources */,
 				D85621D21E84FA13008EFB1B /* VVeboLabel.swift in Sources */,
 				D85621AB1E84F81B008EFB1B /* ViewController.swift in Sources */,
 				D85621A91E84F81B008EFB1B /* AppDelegate.swift in Sources */,
