@@ -16,6 +16,9 @@
 		D85621CB1E84F9C1008EFB1B /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85621C91E84F9BD008EFB1B /* Kingfisher.framework */; };
 		D85621CC1E84F9C1008EFB1B /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D85621C91E84F9BD008EFB1B /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D85621D21E84FA13008EFB1B /* VVeboLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85621D11E84FA13008EFB1B /* VVeboLabel.swift */; };
+		D8C106E91E890E68000EA508 /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C106E81E890E68000EA508 /* String+Additions.swift */; };
+		D8C107171E8A4877000EA508 /* VVeboTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C107161E8A4877000EA508 /* VVeboTableView.swift */; };
+		D8C107191E8A4D3D000EA508 /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C107181E8A4D3D000EA508 /* data.plist */; };
 		D8C681EF1E86B22A00367414 /* VVeboTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C681EE1E86B22A00367414 /* VVeboTableViewCell.swift */; };
 		D8C681F41E87AB0900367414 /* corner_circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C681F11E87AB0900367414 /* corner_circle@2x.png */; };
 		D8C681F51E87AB0900367414 /* t_comments@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C681F21E87AB0900367414 /* t_comments@2x.png */; };
@@ -61,6 +64,9 @@
 		D85621C91E84F9BD008EFB1B /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		D85621D11E84FA13008EFB1B /* VVeboLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VVeboLabel.swift; sourceTree = "<group>"; };
 		D85621D31E84FA3C008EFB1B /* Bridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridging.h; sourceTree = "<group>"; };
+		D8C106E81E890E68000EA508 /* String+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
+		D8C107161E8A4877000EA508 /* VVeboTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VVeboTableView.swift; sourceTree = "<group>"; };
+		D8C107181E8A4D3D000EA508 /* data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = data.plist; path = Resources/data.plist; sourceTree = "<group>"; };
 		D8C681EE1E86B22A00367414 /* VVeboTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VVeboTableViewCell.swift; sourceTree = "<group>"; };
 		D8C681F11E87AB0900367414 /* corner_circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "corner_circle@2x.png"; path = "Resources/corner_circle@2x.png"; sourceTree = "<group>"; };
 		D8C681F21E87AB0900367414 /* t_comments@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "t_comments@2x.png"; path = "Resources/t_comments@2x.png"; sourceTree = "<group>"; };
@@ -119,6 +125,7 @@
 				D85621B11E84F81B008EFB1B /* LaunchScreen.storyboard */,
 				D85621B41E84F81B008EFB1B /* Info.plist */,
 				D85621D31E84FA3C008EFB1B /* Bridging.h */,
+				D8C107161E8A4877000EA508 /* VVeboTableView.swift */,
 			);
 			path = VVeboTableViewDemo;
 			sourceTree = "<group>";
@@ -152,6 +159,7 @@
 		D8C681F01E87AA2F00367414 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D8C107181E8A4D3D000EA508 /* data.plist */,
 				D8C681F11E87AB0900367414 /* corner_circle@2x.png */,
 				D8C681F21E87AB0900367414 /* t_comments@2x.png */,
 				D8C681F31E87AB0900367414 /* t_repost@2x.png */,
@@ -163,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				D8C681F81E87AB8C00367414 /* UIScreen+Additions.swift */,
+				D8C106E81E890E68000EA508 /* String+Additions.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -256,6 +265,7 @@
 				D8C681F61E87AB0900367414 /* t_repost@2x.png in Resources */,
 				D85621B01E84F81B008EFB1B /* Assets.xcassets in Resources */,
 				D85621AE1E84F81B008EFB1B /* Main.storyboard in Resources */,
+				D8C107191E8A4D3D000EA508 /* data.plist in Resources */,
 				D8C681F41E87AB0900367414 /* corner_circle@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,7 +286,9 @@
 			files = (
 				D8C681F91E87AB8C00367414 /* UIScreen+Additions.swift in Sources */,
 				D8C681EF1E86B22A00367414 /* VVeboTableViewCell.swift in Sources */,
+				D8C106E91E890E68000EA508 /* String+Additions.swift in Sources */,
 				D85621D21E84FA13008EFB1B /* VVeboLabel.swift in Sources */,
+				D8C107171E8A4877000EA508 /* VVeboTableView.swift in Sources */,
 				D85621AB1E84F81B008EFB1B /* ViewController.swift in Sources */,
 				D85621A91E84F81B008EFB1B /* AppDelegate.swift in Sources */,
 			);

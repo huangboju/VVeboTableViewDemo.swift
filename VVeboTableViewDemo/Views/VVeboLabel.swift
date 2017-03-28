@@ -80,8 +80,21 @@ class VVeboLabel : UIView {
     public var lineSpace = 5
     public var textAlignment: NSTextAlignment = .left
     
-    private var labelImageView: UIImageView!
-    private var highlightImageView: UIImageView!
+    private lazy var labelImageView: UIImageView = {
+        let labelImageView = UIImageView(frame: CGRect(x: 0, y: -5, width: self.frame.width, height: self.frame.height + 10))
+        labelImageView.contentMode = .scaleAspectFit
+        labelImageView.tag = Int.min
+        labelImageView.clipsToBounds = true
+        return labelImageView
+    }()
+    private lazy var highlightImageView: UIImageView = {
+        let highlightImageView = UIImageView(frame: CGRect(x: 0, y: -5, width: self.frame.width, height: self.frame.height + 10))
+        highlightImageView.contentMode = .scaleAspectFit
+        highlightImageView.tag = Int.min
+        highlightImageView.clipsToBounds = true
+        highlightImageView.backgroundColor = UIColor.clear
+        return highlightImageView
+    }()
     private var highlighting = false
     private var btnLoaded = false
     private var emojiLoaded = false
@@ -89,7 +102,6 @@ class VVeboLabel : UIView {
     private var highlightColors: [String: UIColor]?
     private var framesDict: [String: CGRect]?
     private var drawFlag: Int = 0
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -102,17 +114,10 @@ class VVeboLabel : UIView {
             kRegexHighlightViewTypeTopic: UIColor(r: 106, g: 140, b: 181)
         ]
         
-        labelImageView = UIImageView(frame: CGRect(x: 0, y: -5, width: frame.width, height: frame.height + 10))
-        labelImageView.contentMode = .scaleAspectFit
-        labelImageView.tag = Int.min
-        labelImageView.clipsToBounds = true
+        
         addSubview(labelImageView)
         
-        highlightImageView = UIImageView(frame: CGRect(x: 0, y: -5, width: frame.width, height: frame.height + 10))
-        highlightImageView.contentMode = .scaleAspectFit
-        highlightImageView.tag = Int.min
-        highlightImageView.clipsToBounds = true
-        highlightImageView.backgroundColor = UIColor.clear
+        
         addSubview(highlightImageView)
         
         isUserInteractionEnabled = true
@@ -303,7 +308,7 @@ class VVeboLabel : UIView {
         
         let lines = CTFrameGetLines(frame)
         let numberOfLines = CFArrayGetCount(lines)
-        var truncateLastLine = false //tailMode
+        let truncateLastLine = false //tailMode
 
         var lineOrigins = [CGPoint](repeating: .zero, count: numberOfLines)
         CTFrameGetLineOrigins(frame, CFRange(location: 0, length: numberOfLines), &lineOrigins)
@@ -321,7 +326,7 @@ class VVeboLabel : UIView {
             CTLineGetTypographicBounds(line as! CTLine, &ascent, &descent, &lineLeading)
             
             // Adjust pen offset for flush depending on text alignment
-            var flushFactor = NSTextAlignment.left
+            let flushFactor = NSTextAlignment.left
             var penOffset: CGFloat = 0
             var y: CGFloat = 0
             
@@ -336,7 +341,7 @@ class VVeboLabel : UIView {
                     
                     let truncationTokenString = "\\u2026"
 
-                    var truncationTokenStringAttributes = attributedString.attributes(at: truncationAttributePosition, effectiveRange: nil)
+                    let truncationTokenStringAttributes = attributedString.attributes(at: truncationAttributePosition, effectiveRange: nil)
                     
                     let attributedTokenString = NSAttributedString(string: truncationTokenString, attributes: truncationTokenStringAttributes)
                     let truncationToken = CTLineCreateWithAttributedString(attributedTokenString)
@@ -358,7 +363,7 @@ class VVeboLabel : UIView {
                     let truncationLine = CTLineCreateWithAttributedString(truncationString)
                     
                     // Truncate the line in case it is too long.
-                    var truncatedLine = CTLineCreateTruncatedLine(truncationLine, Double(rect.width), truncationType, truncationToken)
+                    let truncatedLine = CTLineCreateTruncatedLine(truncationLine, Double(rect.width), truncationType, truncationToken)
                     if truncatedLine == nil {
                         // If the line is not as wide as the truncationToken, truncatedLine is NULL
 //                        truncatedLine = CFRetain(truncationToken)

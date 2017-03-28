@@ -12,7 +12,15 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        let tableView = VVeboTableView(frame: view.bounds, style: .plain)
+        tableView.register(VVeboTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        tableView.scrollIndicatorInsets = tableView.contentInset
+        view.addSubview(tableView)
+
+        let statusBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 20))
+        view.addSubview(statusBar)
     }
 
     override func didReceiveMemoryWarning() {
