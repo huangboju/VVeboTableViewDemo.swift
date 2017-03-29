@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D817431D1E8B556C00EB23DC /* VVeboTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D817431C1E8B556C00EB23DC /* VVeboTableView.swift */; };
+		D81743251E8B600800EB23DC /* DataPrenstenter.m in Sources */ = {isa = PBXBuildFile; fileRef = D81743241E8B600800EB23DC /* DataPrenstenter.m */; };
+		D81743281E8B602F00EB23DC /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = D81743271E8B602F00EB23DC /* NSString+Additions.m */; };
+		D817432D1E8B65CB00EB23DC /* UIScreen+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D817432C1E8B65CB00EB23DC /* UIScreen+Additions.swift */; };
 		D85621A91E84F81B008EFB1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85621A81E84F81B008EFB1B /* AppDelegate.swift */; };
 		D85621AB1E84F81B008EFB1B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85621AA1E84F81B008EFB1B /* ViewController.swift */; };
 		D85621AE1E84F81B008EFB1B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D85621AC1E84F81B008EFB1B /* Main.storyboard */; };
@@ -17,13 +21,11 @@
 		D85621CC1E84F9C1008EFB1B /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D85621C91E84F9BD008EFB1B /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D85621D21E84FA13008EFB1B /* VVeboLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85621D11E84FA13008EFB1B /* VVeboLabel.swift */; };
 		D8C106E91E890E68000EA508 /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C106E81E890E68000EA508 /* String+Additions.swift */; };
-		D8C107171E8A4877000EA508 /* VVeboTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C107161E8A4877000EA508 /* VVeboTableView.swift */; };
 		D8C107191E8A4D3D000EA508 /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C107181E8A4D3D000EA508 /* data.plist */; };
 		D8C681EF1E86B22A00367414 /* VVeboTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C681EE1E86B22A00367414 /* VVeboTableViewCell.swift */; };
 		D8C681F41E87AB0900367414 /* corner_circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C681F11E87AB0900367414 /* corner_circle@2x.png */; };
 		D8C681F51E87AB0900367414 /* t_comments@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C681F21E87AB0900367414 /* t_comments@2x.png */; };
 		D8C681F61E87AB0900367414 /* t_repost@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C681F31E87AB0900367414 /* t_repost@2x.png */; };
-		D8C681F91E87AB8C00367414 /* UIScreen+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C681F81E87AB8C00367414 /* UIScreen+Additions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D817431C1E8B556C00EB23DC /* VVeboTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VVeboTableView.swift; sourceTree = "<group>"; };
+		D81743231E8B600800EB23DC /* DataPrenstenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataPrenstenter.h; sourceTree = "<group>"; };
+		D81743241E8B600800EB23DC /* DataPrenstenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataPrenstenter.m; sourceTree = "<group>"; };
+		D81743261E8B602F00EB23DC /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
+		D81743271E8B602F00EB23DC /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
+		D817432C1E8B65CB00EB23DC /* UIScreen+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScreen+Additions.swift"; sourceTree = "<group>"; };
 		D85621A51E84F81B008EFB1B /* VVeboTableViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VVeboTableViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D85621A81E84F81B008EFB1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D85621AA1E84F81B008EFB1B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -65,13 +73,11 @@
 		D85621D11E84FA13008EFB1B /* VVeboLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VVeboLabel.swift; sourceTree = "<group>"; };
 		D85621D31E84FA3C008EFB1B /* Bridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridging.h; sourceTree = "<group>"; };
 		D8C106E81E890E68000EA508 /* String+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
-		D8C107161E8A4877000EA508 /* VVeboTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VVeboTableView.swift; sourceTree = "<group>"; };
 		D8C107181E8A4D3D000EA508 /* data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = data.plist; path = Resources/data.plist; sourceTree = "<group>"; };
 		D8C681EE1E86B22A00367414 /* VVeboTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VVeboTableViewCell.swift; sourceTree = "<group>"; };
 		D8C681F11E87AB0900367414 /* corner_circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "corner_circle@2x.png"; path = "Resources/corner_circle@2x.png"; sourceTree = "<group>"; };
 		D8C681F21E87AB0900367414 /* t_comments@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "t_comments@2x.png"; path = "Resources/t_comments@2x.png"; sourceTree = "<group>"; };
 		D8C681F31E87AB0900367414 /* t_repost@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "t_repost@2x.png"; path = "Resources/t_repost@2x.png"; sourceTree = "<group>"; };
-		D8C681F81E87AB8C00367414 /* UIScreen+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScreen+Additions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,12 +126,14 @@
 				D85621D01E84F9E7008EFB1B /* Views */,
 				D85621A81E84F81B008EFB1B /* AppDelegate.swift */,
 				D85621AA1E84F81B008EFB1B /* ViewController.swift */,
+				D817431C1E8B556C00EB23DC /* VVeboTableView.swift */,
+				D81743231E8B600800EB23DC /* DataPrenstenter.h */,
+				D81743241E8B600800EB23DC /* DataPrenstenter.m */,
 				D85621AC1E84F81B008EFB1B /* Main.storyboard */,
 				D85621AF1E84F81B008EFB1B /* Assets.xcassets */,
 				D85621B11E84F81B008EFB1B /* LaunchScreen.storyboard */,
 				D85621B41E84F81B008EFB1B /* Info.plist */,
 				D85621D31E84FA3C008EFB1B /* Bridging.h */,
-				D8C107161E8A4877000EA508 /* VVeboTableView.swift */,
 			);
 			path = VVeboTableViewDemo;
 			sourceTree = "<group>";
@@ -170,7 +178,9 @@
 		D8C681F71E87AB7000367414 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				D8C681F81E87AB8C00367414 /* UIScreen+Additions.swift */,
+				D817432C1E8B65CB00EB23DC /* UIScreen+Additions.swift */,
+				D81743261E8B602F00EB23DC /* NSString+Additions.h */,
+				D81743271E8B602F00EB23DC /* NSString+Additions.m */,
 				D8C106E81E890E68000EA508 /* String+Additions.swift */,
 			);
 			path = Support;
@@ -227,6 +237,7 @@
 				TargetAttributes = {
 					D85621A41E84F81B008EFB1B = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 46A8679957;
 						ProvisioningStyle = Automatic;
 					};
 					D85621B81E84F81B008EFB1B = {
@@ -284,11 +295,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8C681F91E87AB8C00367414 /* UIScreen+Additions.swift in Sources */,
+				D81743251E8B600800EB23DC /* DataPrenstenter.m in Sources */,
+				D81743281E8B602F00EB23DC /* NSString+Additions.m in Sources */,
 				D8C681EF1E86B22A00367414 /* VVeboTableViewCell.swift in Sources */,
 				D8C106E91E890E68000EA508 /* String+Additions.swift in Sources */,
+				D817432D1E8B65CB00EB23DC /* UIScreen+Additions.swift in Sources */,
 				D85621D21E84FA13008EFB1B /* VVeboLabel.swift in Sources */,
-				D8C107171E8A4877000EA508 /* VVeboTableView.swift in Sources */,
+				D817431D1E8B556C00EB23DC /* VVeboTableView.swift in Sources */,
 				D85621AB1E84F81B008EFB1B /* ViewController.swift in Sources */,
 				D85621A91E84F81B008EFB1B /* AppDelegate.swift in Sources */,
 			);
@@ -427,6 +440,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 46A8679957;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -445,6 +459,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 46A8679957;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",

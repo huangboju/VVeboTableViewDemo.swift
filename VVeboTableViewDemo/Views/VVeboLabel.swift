@@ -151,8 +151,6 @@ class VVeboLabel : UIView {
             kRegexHighlightViewTypeEmoji: EmojiRegular,
             ]
         //For each definition entry apply the highlighting to matched ranges
-        
-        
         for (key, expression) in definition {
             
             guard let matches = try? NSRegularExpression(pattern: expression, options: .dotMatchesLineSeparators).matches(in: string, options: [], range: range) else { continue }
@@ -161,7 +159,7 @@ class VVeboLabel : UIView {
                 //                var textColor = highlightColors?[key] ?? self.textColor
                 let hasImage = labelImageView.image != nil
                 if hasImage && currentRange.location != -1 && currentRange.location >= match.range.location && currentRange.length + currentRange.location <= match.range.length + match.range.location {
-                    coloredString.addAttribute(String(kCTForegroundColorAttributeName), value: UIColor(r: 224, g: 44, b: 86).cgColor, range: match.range)
+                    coloredString.addAttribute(NSForegroundColorAttributeName, value: UIColor(r: 224, g: 44, b: 86).cgColor, range: match.range)
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
                         self.backToNormal()
@@ -214,20 +212,20 @@ class VVeboLabel : UIView {
                 self.backgroundColor?.set()
                 context.fill(CGRect(origin: .zero, size: size))
             }
-            context.textMatrix = CGAffineTransform.identity
-            context.translateBy(x: 0,y: size.height)
-            context.scaleBy(x: 1.0,y: -1.0)
-            
+            context.textMatrix = .identity
+            context.translateBy(x: 0, y: size.height)
+            context.scaleBy(x: 1.0, y: -1.0)
+
             //Determine default text color
             let textColor = self.textColor
-            
+
             //Set line height, font, color and break mode
             var minimumLineHeight = self.font.pointSize
             var maximumLineHeight = minimumLineHeight
             var linespace = self.lineSpace
             
             let font = CTFontCreateWithName(self.font.fontName as CFString?, self.font.pointSize, nil)
-            
+
             var lineBreakMode = CTLineBreakMode.byWordWrapping
             var alignment = CTTextAlignmentFromUITextAlignment(self.textAlignment)
             //Apply paragraph settings
@@ -240,9 +238,9 @@ class VVeboLabel : UIView {
                 CTParagraphStyleSetting(spec: .minimumLineSpacing, valueSize: MemoryLayout.size(ofValue: linespace), value: &linespace),
                 CTParagraphStyleSetting(spec: .lineBreakMode, valueSize: MemoryLayout.size(ofValue: 1), value: &lineBreakMode)
             ]
-            
+
             let style = CTParagraphStyleCreate(alignmentSetting, alignmentSetting.count)
-            
+
             let attributes: [String: Any] = [
                 NSFontAttributeName: font,
                 NSForegroundColorAttributeName: textColor.cgColor,
@@ -251,17 +249,17 @@ class VVeboLabel : UIView {
             
             //Create attributed string, with applied syntax highlighting
             let attributedStr = NSMutableAttributedString(string: text, attributes: attributes)
-            
+
             let attributedString = self.highlightText(attributedStr) as CFAttributedString
             
             //Draw the frame
             let framesetter = CTFramesetterCreateWithAttributedString(attributedString)
             
             let rect = CGRect(x: 0, y: 5, width: size.width, height: size.height - 5)
-            
+
             guard temp == text else { return }
             self.draw(framesetter: framesetter, attributedString: attributedStr, textRange: CFRangeMake(0, text.length), in: rect, context: context)
-            context.textMatrix = CGAffineTransform.identity
+            context.textMatrix = .identity
             context.translateBy(x: 0, y: size.height)
             context.scaleBy(x: 1.0, y: -1.0)
             let screenShotimage = UIGraphicsGetImageFromCurrentImageContext()
@@ -365,6 +363,7 @@ class VVeboLabel : UIView {
                     // Truncate the line in case it is too long.
                     let truncatedLine = CTLineCreateTruncatedLine(truncationLine, Double(rect.width), truncationType, truncationToken)
                     if truncatedLine == nil {
+                        print("😁")
                         // If the line is not as wide as the truncationToken, truncatedLine is NULL
 //                        truncatedLine = CFRetain(truncationToken)
                     }
@@ -393,7 +392,6 @@ class VVeboLabel : UIView {
                     var runDescent: CGFloat = 0
                     let run = CFArrayGetValueAtIndex(runs, j)
                     let attributes = CTRunGetAttributes(run as! CTRun) as! [String: Any]
-                    
                     if (attributes["CTForegroundColor"] as! CGColor) != textColor.cgColor
                         && framesDict != nil {
                         let range = CTRunGetStringRange(run as! CTRun)

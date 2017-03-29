@@ -23,10 +23,10 @@ let SIZE_FONT_CONTENT: CGFloat = 17
 let SIZE_FONT_SUBCONTENT: CGFloat = (SIZE_FONT_CONTENT-1)
 
 class VVeboTableViewCell : UITableViewCell {
-    public var data: [String: Any]? {
+    public var data: NSMutableDictionary? {
         didSet {
             avatarView.setBackgroundImage(nil, for: .normal)
-            
+
             guard let urlStr = data?["avatarUrl"] as? String else { return }
             let url = URL(string: urlStr)
             avatarView.kf.setBackgroundImage(with: url, for: .normal)
@@ -70,8 +70,8 @@ class VVeboTableViewCell : UITableViewCell {
         topLine.backgroundColor = UIColor(r: 200, g: 200, b: 200)
         topLine.tag = .max
         contentView.addSubview(topLine)
-        
-        backgroundColor = UIColor(r: 250, g: 250, b: 250)
+
+        backgroundColor = .white
 
         addLabel()
         
@@ -82,9 +82,9 @@ class VVeboTableViewCell : UITableViewCell {
         mulitPhotoScrollView.tag = .max;
         mulitPhotoScrollView.isHidden = true
         contentView.addSubview(mulitPhotoScrollView)
-        
+
         let h2 = SIZE_GAP_IMG + SIZE_IMAGE
-        
+
         for i in 0 ..< 9 {
             let g = SIZE_GAP_IMG
             let width = SIZE_IMAGE
@@ -120,7 +120,7 @@ class VVeboTableViewCell : UITableViewCell {
         label.textColor = UIColor(r: 50, g: 50, b: 50)
         label.backgroundColor = backgroundColor
         contentView.addSubview(label)
-        
+
         detailLabel = VVeboLabel(frame: data?["subTextRect"] as? CGRect ?? .zero)
         detailLabel.font = FontWithSize(SIZE_FONT_SUBCONTENT)
         detailLabel.textColor = UIColor(r: 50, g: 50, b: 50)
@@ -138,35 +138,34 @@ class VVeboTableViewCell : UITableViewCell {
         DispatchQueue.global().async {
             let rect = self.data?["frame"] as? CGRect ?? .zero
             UIGraphicsBeginImageContextWithOptions(rect.size, true, 0)
-            let context = UIGraphicsGetCurrentContext()
+            guard let context = UIGraphicsGetCurrentContext() else { return }
             UIColor(r: 250, g: 250, b: 250).set()
-            context?.fill(rect)
-            
-            if let subdata = self.data?["subData"] as? [String: Any] {
+            context.fill(rect)
+            if let subdata = self.data?["subData"] as? NSMutableDictionary {
                 UIColor(r: 243, g: 243, b: 243).set()
                 let subFrame = subdata["frame"] as? CGRect ?? .zero
-                context?.fill(subFrame)
+                context.fill(subFrame)
                 UIColor(r: 200, g: 200, b: 200).set()
-                context?.fill(CGRect(x: 0, y: subFrame.minY, width: rect.width, height: 0.5))
+                context.fill(CGRect(x: 0, y: subFrame.minY, width: rect.width, height: 0.5))
             }
 
             do {
-                let leftX = SIZE_GAP_LEFT+SIZE_AVATAR+SIZE_GAP_BIG
+                let leftX = SIZE_GAP_LEFT + SIZE_AVATAR + SIZE_GAP_BIG
                 let x = leftX
                 var y = (SIZE_AVATAR-(SIZE_FONT_NAME+SIZE_FONT_SUBTITLE+6))/2-2+SIZE_GAP_TOP+SIZE_GAP_SMALL-5
                 
-                (self.data?["name"] as? String)?.draw(in: context!, with: CGPoint(x: x, y: y), andFont: FontWithSize(SIZE_FONT_NAME), andTextColor: UIColor(r: 106, g: 140, b: 181), andHeight: rect.height)
+                (self.data?["name"] as? String)?.draw(in: context, with: CGPoint(x: x, y: y), andFont: FontWithSize(SIZE_FONT_NAME), andTextColor: UIColor(r: 106, g: 140, b: 181), andHeight: rect.height)
                 y += SIZE_FONT_NAME + 5
-                let fromX = leftX;
+                let fromX = leftX
                 let size = UIScreen.screenWidth - leftX
                 let from =    "\((self.data?["time"] as? String) ?? "")  \((self.data?["from"] as? String) ?? "")"
-                from.draw(in: context!, with: CGPoint(x: fromX, y: y), andFont: FontWithSize(SIZE_FONT_SUBTITLE), andTextColor: UIColor(r: 178, g: 178, b: 178), andHeight: rect.height, andWidth: size)
+                from.draw(in: context, with: CGPoint(x: fromX, y: y), andFont: FontWithSize(SIZE_FONT_SUBTITLE), andTextColor: UIColor(r: 178, g: 178, b: 178), andHeight: rect.height, andWidth: size)
             }
             
             do {
                 let countRect = CGRect(x: 0, y: rect.height-30,  width: UIScreen.screenWidth, height: 30)
                 UIColor(r: 250, g: 250, b: 250).set()
-                context?.fill(countRect)
+                context.fill(countRect)
                 let alpha: CGFloat = 1
                 
                 var x = UIScreen.screenWidth - SIZE_GAP_LEFT - 10
@@ -176,28 +175,28 @@ class VVeboTableViewCell : UITableViewCell {
                     
                     x -= size.width
                     
-                    comments.draw(in: context!, with: CGPoint(x: x, y: 8 + countRect.minY), andFont: FontWithSize(12), andTextColor: UIColor(r: 178, g: 178, b: 178), andHeight: rect.height)
+                    comments.draw(in: context, with: CGPoint(x: x, y: 8 + countRect.minY), andFont: FontWithSize(12), andTextColor: UIColor(r: 178, g: 178, b: 178), andHeight: rect.height)
                     UIImage(named: "t_comments")?.draw(in: CGRect(x: x - 5, y: 10.5 + countRect.minY, width: 10, height: 9), blendMode: CGBlendMode.normal, alpha: alpha)
                     self.commentsRect = CGRect(x: x-5, y: self.frame.height - 50, width: UIScreen.screenWidth - x + 5, height: 50)
                     x -= 20
                 }
-                
+
                 if let reposts = self.data?["reposts"] as? String  {
                     let size = reposts.sizeWithConstrained(to: CGSize(width: CGFloat.infinity, height: CGFloat.infinity), fromFont: FontWithSize(SIZE_FONT_SUBTITLE), lineSpace: 5)
-                    
+
                     x -= max(size.width, 5) + SIZE_GAP_BIG
-                    reposts.draw(in: context!, with: CGPoint(x: x, y: 8 + countRect.minY), andFont: FontWithSize(12), andTextColor: UIColor(r: 178, g: 178, b: 178), andHeight: rect.height)
+                    reposts.draw(in: context, with: CGPoint(x: x, y: 8 + countRect.minY), andFont: FontWithSize(12), andTextColor: UIColor(r: 178, g: 178, b: 178), andHeight: rect.height)
                     
                     UIImage(named: "t_repost")?.draw(in: CGRect(x: x-5, y: 11+countRect.minY, width: 10, height: 9), blendMode: .normal, alpha: alpha)
                     self.repostsRect = CGRect(x: x-5, y: self.frame.height - 50, width: self.commentsRect.minX - x, height: 50)
                     x -= 20
                 }
                 
-                "•••".draw(in: context!, with: CGPoint(x: SIZE_GAP_LEFT, y: 8 + countRect.minY), andFont: FontWithSize(11), andTextColor: UIColor(r: 178, g: 178, b: 178), andHeight: rect.height)
+                "•••".draw(in: context, with: CGPoint(x: SIZE_GAP_LEFT, y: 8 + countRect.minY), andFont: FontWithSize(11), andTextColor: UIColor(r: 178, g: 178, b: 178), andHeight: rect.height)
                 
                 if self.data?["subData"] != nil {
                     UIColor(r: 200, g: 200, b: 200).set()
-                    context?.fill(CGRect(x: 0, y: rect.height - 30.5, width: rect.width, height: 0.5))
+                    context.fill(CGRect(x: 0, y: rect.height - 30.5, width: rect.width, height: 0.5))
                 }
             }
             
@@ -210,9 +209,9 @@ class VVeboTableViewCell : UITableViewCell {
                     self.postBGView.image = temp
                 }
             }
-            self.drawText()
-            self.loadThumb()
         }
+        self.drawText()
+        self.loadThumb()
     }
     
     //将文本内容绘制到图片上
@@ -222,7 +221,7 @@ class VVeboTableViewCell : UITableViewCell {
         }
         label.frame = data?["textRect"] as? CGRect ?? .zero
         label.text = data?["text"] as? String
-        
+
         if let subData = data?["subData"] as? [String: Any] {
             detailLabel.frame = subData["textRect"] as? CGRect ?? .zero
             detailLabel.text = subData["text"] as? String

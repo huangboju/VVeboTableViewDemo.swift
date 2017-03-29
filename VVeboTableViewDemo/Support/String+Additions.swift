@@ -98,12 +98,12 @@ extension String {
         return sizeWithConstrained(to: CGSize(width: width, height: CGFloat.infinity), fromFont: font1, lineSpace: lineSpace)
     }
 
-    func draw(in context: CGContext, with position: CGPoint, andFont font: UIFont, andTextColor textColor: UIColor, andHeight height: CGFloat, andWidth width: CGFloat){
+    func draw(in context: CGContext, with position: CGPoint, andFont font: UIFont, andTextColor textColor: UIColor, andHeight height: CGFloat, andWidth width: CGFloat) {
         let size = CGSize(width: width, height: font.pointSize + 10)
         context.textMatrix = .identity
         context.translateBy(x: 0, y: height)
         context.scaleBy(x: 1.0, y: -1.0)
-        
+
         //Determine default text color
         //Set line height, font, color and break mode
         let font1 = CTFontCreateWithName(font.fontName as CFString?, font.pointSize, nil)
@@ -123,9 +123,9 @@ extension String {
             CTParagraphStyleSetting(spec: .minimumLineSpacing, valueSize: MemoryLayout.size(ofValue: linespace), value: &linespace),
             CTParagraphStyleSetting(spec: .lineBreakMode, valueSize: MemoryLayout.size(ofValue: 1), value: &lineBreakMode)
         ]
-        
+
         let style = CTParagraphStyleCreate(alignmentSetting, alignmentSetting.count)
-        
+
         let attributes: [String: Any] = [
             kCTFontAttributeName as String: font1,
             kCTForegroundColorAttributeName as String: textColor.cgColor,
@@ -134,12 +134,12 @@ extension String {
         //Create path to work with a frame with applied margins
         let path = CGMutablePath()
         path.addRect(CGRect(x: position.x, y: height - position.y - size.height, width: size.width, height: size.height))
-        
+
         //Create attributed string, with applied syntax highlighting
-        
+
         let attributedStr = NSMutableAttributedString(string: self, attributes: attributes)
         let attributedString = attributedStr
-        
+
         //Draw the frame
         let framesetter = CTFramesetterCreateWithAttributedString(attributedString)
         let ctframe = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, CFAttributedStringGetLength(attributedString)), path, nil)
@@ -149,7 +149,7 @@ extension String {
         context.translateBy(x: 0, y: height)
         context.scaleBy(x: 1.0, y: -1.0)
     }
-    
+
     func draw(in context: CGContext, with position: CGPoint, andFont font: UIFont, andTextColor color: UIColor, andHeight height: CGFloat){
         draw(in: context, with: position, andFont: font, andTextColor: color, andHeight: height, andWidth: CGFloat.infinity)
     }
