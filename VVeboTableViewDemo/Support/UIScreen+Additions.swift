@@ -15,3 +15,23 @@ extension UIScreen {
         }
     }
 }
+
+extension UIColor {
+    convenience init(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat = 1) {
+        self.init(red: r / 255, green: g / 255, blue: b / 255, alpha: a)
+    }
+}
+
+extension CGFloat {
+    static var max: CGFloat {
+        return CGFloat(HUGE)
+    }
+}
+
+extension CGContext {
+    func adjustFrameWithY(_ y: CGFloat) {
+        textMatrix = .identity
+        translateBy(x: 0, y: y)
+        scaleBy(x: 1.0, y: -1.0)
+    }
+}

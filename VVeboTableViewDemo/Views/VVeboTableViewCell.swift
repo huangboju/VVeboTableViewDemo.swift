@@ -71,7 +71,7 @@ class VVeboTableViewCell : UITableViewCell {
         topLine.tag = .max
         contentView.addSubview(topLine)
 
-        backgroundColor = .white
+        backgroundColor = UIColor(r: 250, g: 250, b: 250)
 
         addLabel()
         
@@ -153,8 +153,9 @@ class VVeboTableViewCell : UITableViewCell {
                 let leftX = SIZE_GAP_LEFT + SIZE_AVATAR + SIZE_GAP_BIG
                 let x = leftX
                 var y = (SIZE_AVATAR-(SIZE_FONT_NAME+SIZE_FONT_SUBTITLE+6))/2-2+SIZE_GAP_TOP+SIZE_GAP_SMALL-5
-                
+
                 (self.data?["name"] as? String)?.draw(in: context, with: CGPoint(x: x, y: y), andFont: FontWithSize(SIZE_FONT_NAME), andTextColor: UIColor(r: 106, g: 140, b: 181), andHeight: rect.height)
+
                 y += SIZE_FONT_NAME + 5
                 let fromX = leftX
                 let size = UIScreen.screenWidth - leftX
@@ -171,8 +172,8 @@ class VVeboTableViewCell : UITableViewCell {
                 var x = UIScreen.screenWidth - SIZE_GAP_LEFT - 10
                 
                 if let comments = self.data?["comments"] as? String {
-                    let size = comments.sizeWithConstrained(to: CGSize(width: CGFloat.infinity, height: CGFloat.infinity), fromFont: FontWithSize(SIZE_FONT_SUBTITLE), lineSpace: 5)
-                    
+                    let size = comments.sizeWithConstrained(to: CGSize(width: CGFloat.max, height: .max), fromFont: FontWithSize(SIZE_FONT_SUBTITLE), lineSpace: 5)
+
                     x -= size.width
                     
                     comments.draw(in: context, with: CGPoint(x: x, y: 8 + countRect.minY), andFont: FontWithSize(12), andTextColor: UIColor(r: 178, g: 178, b: 178), andHeight: rect.height)
@@ -182,24 +183,24 @@ class VVeboTableViewCell : UITableViewCell {
                 }
 
                 if let reposts = self.data?["reposts"] as? String  {
-                    let size = reposts.sizeWithConstrained(to: CGSize(width: CGFloat.infinity, height: CGFloat.infinity), fromFont: FontWithSize(SIZE_FONT_SUBTITLE), lineSpace: 5)
+                    let size = reposts.sizeWithConstrained(to: CGSize(width: CGFloat.max, height: CGFloat.max), fromFont: FontWithSize(SIZE_FONT_SUBTITLE), lineSpace: 5)
 
                     x -= max(size.width, 5) + SIZE_GAP_BIG
                     reposts.draw(in: context, with: CGPoint(x: x, y: 8 + countRect.minY), andFont: FontWithSize(12), andTextColor: UIColor(r: 178, g: 178, b: 178), andHeight: rect.height)
-                    
+
                     UIImage(named: "t_repost")?.draw(in: CGRect(x: x-5, y: 11+countRect.minY, width: 10, height: 9), blendMode: .normal, alpha: alpha)
                     self.repostsRect = CGRect(x: x-5, y: self.frame.height - 50, width: self.commentsRect.minX - x, height: 50)
                     x -= 20
                 }
-                
+
                 "•••".draw(in: context, with: CGPoint(x: SIZE_GAP_LEFT, y: 8 + countRect.minY), andFont: FontWithSize(11), andTextColor: UIColor(r: 178, g: 178, b: 178), andHeight: rect.height)
-                
+
                 if self.data?["subData"] != nil {
                     UIColor(r: 200, g: 200, b: 200).set()
                     context.fill(CGRect(x: 0, y: rect.height - 30.5, width: rect.width, height: 0.5))
                 }
             }
-            
+
             let temp = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             DispatchQueue.main.async {
