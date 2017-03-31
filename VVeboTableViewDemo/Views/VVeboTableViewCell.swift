@@ -116,7 +116,7 @@ class VVeboTableViewCell : UITableViewCell {
         }
         
         label = VVeboLabel(frame: data?["textRect"] as? CGRect ?? .zero)
-        
+
         label.textColor = UIColor(r: 50, g: 50, b: 50)
         label.backgroundColor = backgroundColor
         contentView.addSubview(label)
@@ -177,7 +177,7 @@ class VVeboTableViewCell : UITableViewCell {
                     x -= size.width
                     
                     comments.draw(in: context, with: CGPoint(x: x, y: 8 + countRect.minY), andFont: FontWithSize(12), andTextColor: UIColor(r: 178, g: 178, b: 178), andHeight: rect.height)
-                    UIImage(named: "t_comments")?.draw(in: CGRect(x: x - 5, y: 10.5 + countRect.minY, width: 10, height: 9), blendMode: CGBlendMode.normal, alpha: alpha)
+                    UIImage(named: "t_comments")?.draw(in: CGRect(x: x - 5, y: 10.5 + countRect.minY, width: 10, height: 9), blendMode: .normal, alpha: alpha)
                     self.commentsRect = CGRect(x: x-5, y: self.frame.height - 50, width: UIScreen.screenWidth - x + 5, height: 50)
                     x -= 20
                 }
@@ -214,7 +214,7 @@ class VVeboTableViewCell : UITableViewCell {
         self.drawText()
         self.loadThumb()
     }
-    
+
     //将文本内容绘制到图片上
     func drawText () {
         if label == nil || detailLabel == nil {
@@ -249,7 +249,7 @@ class VVeboTableViewCell : UITableViewCell {
             for i in 0 ..< 9 {
                 let thumbView = mulitPhotoScrollView.viewWithTag(i+1)
                 thumbView?.contentMode = .scaleAspectFill
-                thumbView?.backgroundColor = UIColor.lightGray
+                thumbView?.backgroundColor = .lightGray
                 thumbView?.clipsToBounds = true
                 if i < urls.count {
                     thumbView?.frame = CGRect(x: SIZE_GAP_LEFT+(SIZE_GAP_IMG+SIZE_IMAGE) * CGFloat(i), y: 0.5, width: SIZE_IMAGE, height: SIZE_IMAGE)

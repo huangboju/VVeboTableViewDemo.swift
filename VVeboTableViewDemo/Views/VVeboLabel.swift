@@ -79,7 +79,7 @@ class VVeboLabel : UIView {
     public var font: UIFont = UIFont(name: "HelveticaNeue-Light", size: 17)!
     public var lineSpace = 5
     public var textAlignment: NSTextAlignment = .left
-    
+
     private lazy var labelImageView: UIImageView = {
         let labelImageView = UIImageView(frame: CGRect(x: 0, y: -5, width: self.frame.width, height: self.frame.height + 10))
         labelImageView.contentMode = .scaleAspectFit
@@ -162,7 +162,7 @@ class VVeboLabel : UIView {
                     })
                 } else {
                     guard let highlightColor = highlightColors[key] else { continue }
-                    coloredString.addAttribute(NSForegroundColorAttributeName, value: highlightColor.cgColor, range: match.range)
+                    coloredString.addAttribute(NSForegroundColorAttributeName, value: highlightColor, range: match.range)
                 }
             }
         }
@@ -250,8 +250,8 @@ class VVeboLabel : UIView {
             self.draw(framesetter: framesetter, attributedString: attributedStr, textRange: CFRangeMake(0, text.length), in: rect, context: context)
             context.adjustFrameWithY(size.height)
             let screenShotimage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
             let shotImageSize = screenShotimage?.size ?? .zero
+            UIGraphicsEndImageContext()
             DispatchQueue.main.async {
                 attributedStr.mutableString.setString("")
 
@@ -378,6 +378,7 @@ class VVeboLabel : UIView {
                 let attributes = CTRunGetAttributes(run) as! [String: Any]
 
                 guard let fgColor = attributes["NSColor"] else { continue }
+
                 if (fgColor as! CGColor) != textColor.cgColor {
                     let range = CTRunGetStringRange(run)
                     var runRect = CGRect()
@@ -466,6 +467,7 @@ class VVeboLabel : UIView {
             range = NSRange(location: range.location, length: range.length - 1)
             currentRange = range
             highlightWord()
+            break
         }
     }
 
