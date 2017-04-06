@@ -199,7 +199,9 @@ class VVeboLabel : UIView {
             size.height += 10
 
             let isNotClear = self.backgroundColor != .clear
+
             UIGraphicsBeginImageContextWithOptions(size, isNotClear, 0)
+
             guard let context = UIGraphicsGetCurrentContext() else { return }
 
             if isNotClear {
@@ -247,10 +249,14 @@ class VVeboLabel : UIView {
             let rect = CGRect(x: 0, y: 5, width: size.width, height: size.height - 5)
 
             guard temp == text else { return }
+
             self.draw(framesetter: framesetter, attributedString: attributedStr, textRange: CFRangeMake(0, text.length), in: rect, context: context)
+
             context.adjustFrameWithY(size.height)
+            // 新绘制的图
             let screenShotimage = UIGraphicsGetImageFromCurrentImageContext()
             let shotImageSize = screenShotimage?.size ?? .zero
+            // 结束绘制
             UIGraphicsEndImageContext()
             DispatchQueue.main.async {
                 attributedStr.mutableString.setString("")
@@ -259,6 +265,7 @@ class VVeboLabel : UIView {
 
                 if isHighlight { //点击高亮进入
                     guard self.highlighting else { return }
+
                     self.highlightImageView.image = nil
 
                     if self.highlightImageView.frame.width != shotImageSize.width {
@@ -289,6 +296,7 @@ class VVeboLabel : UIView {
     func draw(framesetter: CTFramesetter, attributedString: NSAttributedString, textRange: CFRange, in rect: CGRect, context: CGContext) {
         let path = CGMutablePath()
         path.addRect(rect)
+
         let frame = CTFramesetterCreateFrame(framesetter, textRange, path, nil)
 
         let lines = CTFrameGetLines(frame)
@@ -368,7 +376,7 @@ class VVeboLabel : UIView {
                 context.textPosition = CGPoint(x: penOffset, y: y)
                 CTLineDraw(line, context)
             }
-            guard !highlighting && superview != nil else { return }
+            guard !highlighting && superview != nil else { continue }
             let runs = CTLineGetGlyphRuns(line) as! [CTRun]
             for j in 0 ..< runs.count {
                 var runAscent: CGFloat = 0
