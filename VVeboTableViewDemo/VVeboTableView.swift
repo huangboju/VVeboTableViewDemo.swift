@@ -104,7 +104,6 @@ extension VVeboTableView: UITableViewDelegate {
 
     //按需加载 - 如果目标行与当前行相差超过指定行数，只在目标滚动范围的前后指定3行加载。
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-
         guard let cip = indexPathsForVisibleRows?.first,
         let ip = indexPathForRow(at: CGPoint(x: 0, y: targetContentOffset.move().y))
             else { return }

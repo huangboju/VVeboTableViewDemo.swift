@@ -45,13 +45,10 @@ class LazyTableView: UITableView {
         cell.draw()
     }
 
-    //用户触摸时第一时间加载内容
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        for cell in visibleCells {
-            (cell as? VVeboTableViewCell)?.draw()
-        }
-        return super.hitTest(point, with: event)
-    }
+    //用户触摸时第一时间加载内容（这里触摸一下会调用两次）
+//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+//        return super.hitTest(point, with: event)
+//    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -81,7 +78,9 @@ extension LazyTableView: UITableViewDelegate {
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         targetRect = nil
-//        loadVisibleCells()
+        for cell in visibleCells {
+            (cell as? VVeboTableViewCell)?.draw()
+        }
     }
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
