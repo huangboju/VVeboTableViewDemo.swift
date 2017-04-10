@@ -20,6 +20,8 @@
 		D85621CB1E84F9C1008EFB1B /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85621C91E84F9BD008EFB1B /* Kingfisher.framework */; };
 		D85621CC1E84F9C1008EFB1B /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D85621C91E84F9BD008EFB1B /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D85621D21E84FA13008EFB1B /* VVeboLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85621D11E84FA13008EFB1B /* VVeboLabel.swift */; };
+		D88DC5B71E9B937700F8FA1A /* LazyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DC5B61E9B937700F8FA1A /* LazyTableView.swift */; };
+		D88DC5B91E9B964100F8FA1A /* LazyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DC5B81E9B964100F8FA1A /* LazyController.swift */; };
 		D8C106E91E890E68000EA508 /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C106E81E890E68000EA508 /* String+Additions.swift */; };
 		D8C107191E8A4D3D000EA508 /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C107181E8A4D3D000EA508 /* data.plist */; };
 		D8C681EF1E86B22A00367414 /* VVeboTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C681EE1E86B22A00367414 /* VVeboTableViewCell.swift */; };
@@ -72,6 +74,8 @@
 		D85621C91E84F9BD008EFB1B /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		D85621D11E84FA13008EFB1B /* VVeboLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VVeboLabel.swift; sourceTree = "<group>"; };
 		D85621D31E84FA3C008EFB1B /* Bridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridging.h; sourceTree = "<group>"; };
+		D88DC5B61E9B937700F8FA1A /* LazyTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyTableView.swift; sourceTree = "<group>"; };
+		D88DC5B81E9B964100F8FA1A /* LazyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyController.swift; sourceTree = "<group>"; };
 		D8C106E81E890E68000EA508 /* String+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
 		D8C107181E8A4D3D000EA508 /* data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = data.plist; path = Resources/data.plist; sourceTree = "<group>"; };
 		D8C681EE1E86B22A00367414 /* VVeboTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VVeboTableViewCell.swift; sourceTree = "<group>"; };
@@ -127,6 +131,8 @@
 				D85621A81E84F81B008EFB1B /* AppDelegate.swift */,
 				D85621AA1E84F81B008EFB1B /* ViewController.swift */,
 				D817431C1E8B556C00EB23DC /* VVeboTableView.swift */,
+				D88DC5B81E9B964100F8FA1A /* LazyController.swift */,
+				D88DC5B61E9B937700F8FA1A /* LazyTableView.swift */,
 				D81743231E8B600800EB23DC /* DataPrenstenter.h */,
 				D81743241E8B600800EB23DC /* DataPrenstenter.m */,
 				D85621AC1E84F81B008EFB1B /* Main.storyboard */,
@@ -296,6 +302,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D81743251E8B600800EB23DC /* DataPrenstenter.m in Sources */,
+				D88DC5B91E9B964100F8FA1A /* LazyController.swift in Sources */,
+				D88DC5B71E9B937700F8FA1A /* LazyTableView.swift in Sources */,
 				D81743281E8B602F00EB23DC /* NSString+Additions.m in Sources */,
 				D8C681EF1E86B22A00367414 /* VVeboTableViewCell.swift in Sources */,
 				D8C106E91E890E68000EA508 /* String+Additions.swift in Sources */,

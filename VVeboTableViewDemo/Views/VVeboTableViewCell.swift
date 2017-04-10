@@ -300,12 +300,12 @@ class VVeboTableViewCell : UITableViewCell {
         clear()
         super.removeFromSuperview()
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
         print("postview dealloc \(self)")
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

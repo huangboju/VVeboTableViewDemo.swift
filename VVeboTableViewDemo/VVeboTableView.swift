@@ -10,7 +10,7 @@ class VVeboTableView: UITableView {
     fileprivate lazy var datas: [NSMutableDictionary?] = []
     fileprivate lazy var needLoadArr: [IndexPath] = []
     fileprivate var scrollToToping = false
-    
+
     override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
         separatorStyle = .none
@@ -23,7 +23,7 @@ class VVeboTableView: UITableView {
         
         reloadData()
     }
-    
+
     func loadContent() {
         if scrollToToping {
             return
@@ -31,13 +31,11 @@ class VVeboTableView: UITableView {
         if indexPathsForVisibleRows?.isEmpty ?? true {
             return
         }
-        if !visibleCells.isEmpty {
-            for cell in visibleCells {
-                (cell as? VVeboTableViewCell)?.draw()
-            }
+        for cell in visibleCells {
+            (cell as? VVeboTableViewCell)?.draw()
         }
     }
-    
+
     //用户触摸时第一时间加载内容
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if !scrollToToping {
@@ -70,13 +68,18 @@ extension VVeboTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return datas.count
     }
-    
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        draw(cell: cell as! VVeboTableViewCell, with: indexPath)
+        return cell
+    }
+
     func draw(cell: VVeboTableViewCell, with indexPath: IndexPath) {
         let data = datas[indexPath.row]
         cell.selectionStyle = .none
         cell.clear()
         cell.data = data
-        
         if needLoadArr.count > 0 && needLoadArr.index(of: indexPath) == nil {
             cell.clear()
             return
@@ -86,12 +89,6 @@ extension VVeboTableView: UITableViewDataSource {
         }
         cell.draw()
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        draw(cell: cell as! VVeboTableViewCell, with: indexPath)
-        return cell
-    }
 }
 
 extension VVeboTableView: UITableViewDelegate {
@@ -100,7 +97,7 @@ extension VVeboTableView: UITableViewDelegate {
         let rect = dict?["frame"] as? CGRect ?? .zero
         return rect.height
     }
-    
+
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         needLoadArr.removeAll()
     }
@@ -141,12 +138,12 @@ extension VVeboTableView: UITableViewDelegate {
         scrollToToping = true
         return true
     }
-    
+
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         scrollToToping = false
         loadContent()
     }
-    
+
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         scrollToToping = false
         loadContent()
