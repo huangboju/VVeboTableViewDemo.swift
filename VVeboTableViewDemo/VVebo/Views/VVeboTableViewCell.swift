@@ -32,7 +32,7 @@ class VVeboTableViewCell : UITableViewCell {
             avatarView.kf.setBackgroundImage(with: url, for: .normal)
         }
     }
-    
+
     private var postBGView: UIImageView!
     private var avatarView: UIButton!
     private var cornerImage: UIImageView!
@@ -162,7 +162,7 @@ class VVeboTableViewCell : UITableViewCell {
                 let from =    "\((self.data?["time"] as? String) ?? "")  \((self.data?["from"] as? String) ?? "")"
                 from.draw(in: context, with: CGPoint(x: fromX, y: y), andFont: FontWithSize(SIZE_FONT_SUBTITLE), andTextColor: UIColor(r: 178, g: 178, b: 178), andHeight: rect.height, andWidth: size)
             }
-            
+
             do {
                 let countRect = CGRect(x: 0, y: rect.height-30,  width: UIScreen.screenWidth, height: 30)
                 UIColor(r: 250, g: 250, b: 250).set()
@@ -170,7 +170,7 @@ class VVeboTableViewCell : UITableViewCell {
                 let alpha: CGFloat = 1
                 
                 var x = UIScreen.screenWidth - SIZE_GAP_LEFT - 10
-                
+
                 if let comments = self.data?["comments"] as? String {
                     let size = comments.sizeWithConstrained(to: CGSize(width: CGFloat.max, height: .max), fromFont: FontWithSize(SIZE_FONT_SUBTITLE), lineSpace: 5)
 
@@ -291,12 +291,9 @@ class VVeboTableViewCell : UITableViewCell {
         drawColorFlag = Int(arc4random())
         drawed = false
     }
-    
+
     public func releaseMemory() {
         NotificationCenter.default.removeObserver(self)
-        //	if ([self.delegate keepCell:self]) {
-        //		return;
-        //	}
         clear()
         super.removeFromSuperview()
     }

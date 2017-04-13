@@ -49,7 +49,7 @@ func CTTextAlignmentFromUITextAlignment(_ alignment: NSTextAlignment) -> CTTextA
     }
 }
 
-let _onceToken = UUID().uuidString
+private let _onceToken = UUID().uuidString
 
 func AccountRegularExpression() -> NSRegularExpression? {
     var accountRegularExpression: NSRegularExpression?
@@ -59,7 +59,7 @@ func AccountRegularExpression() -> NSRegularExpression? {
     return accountRegularExpression
 }
 
-let onceToken = UUID().uuidString
+private let onceToken = UUID().uuidString
 
 func TopicRegularExpression() -> NSRegularExpression? {
     var topicRegularExpression: NSRegularExpression?

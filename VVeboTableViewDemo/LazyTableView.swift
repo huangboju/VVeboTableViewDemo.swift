@@ -46,9 +46,13 @@ class LazyTableView: UITableView {
     }
 
     //用户触摸时第一时间加载内容（这里触摸一下会调用两次）
-//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-//        return super.hitTest(point, with: event)
-//    }
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        targetRect = nil
+        for cell in visibleCells {
+            (cell as? VVeboTableViewCell)?.draw()
+        }
+        return super.hitTest(point, with: event)
+    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -59,7 +63,7 @@ extension LazyTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return datas.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         if let cell = cell as? VVeboTableViewCell {
@@ -76,12 +80,12 @@ extension LazyTableView: UITableViewDelegate {
         return rect.height
     }
 
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        targetRect = nil
-        for cell in visibleCells {
-            (cell as? VVeboTableViewCell)?.draw()
-        }
-    }
+//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//        targetRect = nil
+//        for cell in visibleCells {
+//            (cell as? VVeboTableViewCell)?.draw()
+//        }
+//    }
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let rect = CGRect(origin: targetContentOffset.move(), size: scrollView.frame.size)
