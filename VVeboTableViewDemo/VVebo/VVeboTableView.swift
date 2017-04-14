@@ -8,7 +8,7 @@
 
 class VVeboTableView: UITableView {
     fileprivate lazy var datas: [NSMutableDictionary?] = []
-    fileprivate lazy var needLoadArr: [IndexPath] = []
+    fileprivate lazy var needLoadArr: [IndexPath] = [] // 接收需要加载Cell的IndexPath
     fileprivate var scrollToToping = false
 
     override init(frame: CGRect, style: UITableViewStyle) {
@@ -80,10 +80,14 @@ extension VVeboTableView: UITableViewDataSource {
         cell.selectionStyle = .none
         cell.clear()
         cell.data = data
-        if needLoadArr.count > 0 && needLoadArr.index(of: indexPath) == nil {
+        // needLoadArr不为空，说明用户有快速滑动。当needLoadArr不为空时，不在其中的cell也是需要绘制的
+        // 因为在scrollViewWillEndDragging(_: UIScrollView, withVelocity: CGPoint,: UnsafeMutablePointer<CGPoint>)调用之后，tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell是会继续执行的。
+        // 如果单纯判断needLoadArr不为空，会导致之后的不能绘制
+        if !needLoadArr.isEmpty && !needLoadArr.contains(indexPath) {
             cell.clear()
             return
         }
+        // 向上滚动过程不绘制
         if scrollToToping {
             return
         }
@@ -99,7 +103,7 @@ extension VVeboTableView: UITableViewDelegate {
     }
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        needLoadArr.removeAll()
+        needLoadArr.removeAll(keepingCapacity: true)
     }
 
     //按需加载 - 如果目标行与当前行相差超过指定行数，只在目标滚动范围的前后指定3行加载。
@@ -108,27 +112,29 @@ extension VVeboTableView: UITableViewDelegate {
         let ip = indexPathForRow(at: CGPoint(x: 0, y: targetContentOffset.move().y))
             else { return }
         let skipCount = 8
-        if labs(cip.row - ip.row) > skipCount {
-            let temp = indexPathsForRows(in: CGRect(x: 0, y: targetContentOffset.move().y, width: frame.width, height: frame.height))
-            var arr = [temp]
-            if velocity.y < 0 {
-                if let indexPath = temp?.last, indexPath.row + 3 < datas.count {
-                    (1...3).forEach() {
-                        arr.append([IndexPath(row: indexPath.row + $0, section: 0)])
-                    }
-                }
-            } else {
-                if let indexPath = temp?.first, indexPath.row > 3 {
-                    (1...3).reversed().forEach() {
-                        arr.append([IndexPath(row: indexPath.row - $0, section: 0)])
-                    }
+
+        // 快速滑动时，显示的第一个与停止位置的那个Cell间隔超过8
+        guard labs(cip.row - ip.row) > skipCount else { return }
+
+        let temp = indexPathsForRows(in: CGRect(x: 0, y: targetContentOffset.move().y, width: frame.width, height: frame.height))
+        var arr = [temp]
+        if velocity.y < 0 { // 下滑动
+            if let indexPath = temp?.last, indexPath.row + 3 < datas.count {
+                (1...3).forEach() {
+                    arr.append([IndexPath(row: indexPath.row + $0, section: 0)])
                 }
             }
-            for item in arr {
-                guard let item = item else { continue }
-                for indexPath in item {
-                    needLoadArr.append(indexPath)
+        } else { // 上滑动
+            if let indexPath = temp?.first, indexPath.row > 3 {
+                (1...3).reversed().forEach() {
+                    arr.append([IndexPath(row: indexPath.row - $0, section: 0)])
                 }
+            }
+        }
+        for item in arr {
+            guard let item = item else { continue }
+            for indexPath in item {
+                needLoadArr.append(indexPath)
             }
         }
     }
@@ -138,11 +144,13 @@ extension VVeboTableView: UITableViewDelegate {
         return true
     }
 
+    // http://stackoverflow.com/questions/1969256/uiscroll-view-delegate-not-calling-scrollviewdidendscrollinganimation
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         scrollToToping = false
         loadContent()
     }
 
+    // 点击状态栏到顶加载
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         scrollToToping = false
         loadContent()
