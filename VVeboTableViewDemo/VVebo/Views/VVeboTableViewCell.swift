@@ -44,7 +44,7 @@ class VVeboTableViewCell : UITableViewCell {
     private var drawColorFlag = 0
     private var commentsRect = CGRect.zero
     private var repostsRect = CGRect.zero
-    
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         clipsToBounds = true
@@ -99,10 +99,9 @@ class VVeboTableViewCell : UITableViewCell {
 
     override var frame: CGRect {
         didSet {
-            if let topLine = topLine {
-                contentView.bringSubview(toFront: topLine)
-                topLine.frame.origin.y = frame.height - 0.5
-            }
+            guard let topLine = topLine else { return }
+            contentView.bringSubview(toFront: topLine)
+            topLine.frame.origin.y = frame.height - 0.5
         }
     }
 
@@ -114,7 +113,7 @@ class VVeboTableViewCell : UITableViewCell {
         if detailLabel != nil {
             detailLabel = nil
         }
-        
+
         label = VVeboLabel(frame: data?["textRect"] as? CGRect ?? .zero)
 
         label.textColor = UIColor(r: 50, g: 50, b: 50)
@@ -300,7 +299,7 @@ class VVeboTableViewCell : UITableViewCell {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
-        print("postview dealloc \(self)")
+        print("postview dealloc \(classForCoder)")
     }
 
     required init?(coder aDecoder: NSCoder) {
