@@ -1,17 +1,12 @@
 //
-//  MTAsyncLayer.swift
-//  MTAsyncLayer
+//  YYAsyncLayer.swift
+//  YYAsyncLayer
 //
 //  Created by 伯驹 黄 on 2017/4/11.
 //  Copyright © 2017年 伯驹 黄. All rights reserved.
 //
 
-protocol MTAsyncLayerDelegate {
-    /// This method is called to return a new display task when the layer's contents need update.
-    var newAsyncDisplayTask: MTAsyncLayerDisplayTask { get }
-}
-
-let MTAsyncLayerGetReleaseQueue: DispatchQueue = {
+let YYAsyncLayerGetReleaseQueue: DispatchQueue = {
     return DispatchQueue.global(qos: .utility)
 }()
 
@@ -21,7 +16,7 @@ private let MAX_QUEUE_COUNT = 16
 private var  queueCount = 0
 private var queues = [DispatchQueue](repeating: DispatchQueue(label: ""), count: MAX_QUEUE_COUNT)
 private var counter: Int32 = 0
-let MTAsyncLayerGetDisplayQueue: DispatchQueue = {
+let YYAsyncLayerGetDisplayQueue: DispatchQueue = {
     DispatchQueue.once(token: onceToken) {
         // https://cnbin.github.io/blog/2015/05/21/nsprocessinfo-huo-qu-jin-cheng-xin-xi/
         // 获取进程信息
@@ -38,10 +33,10 @@ let MTAsyncLayerGetDisplayQueue: DispatchQueue = {
     return queues[Int(cur) % queueCount]
 }()
 
-class MTAsyncLayer: CALayer {
+class YYAsyncLayer: CALayer {
     public var displaysAsynchronously = true
 
-    private var _sentinel: MTSentinel!
+    private var _sentinel: YYSentinel!
 
     private let _onceToken = UUID().uuidString
 
@@ -61,7 +56,7 @@ class MTAsyncLayer: CALayer {
             scale = UIScreen.main.scale
         }
         contentsScale = scale
-        _sentinel = MTSentinel()
+        _sentinel = YYSentinel()
     }
 
     deinit {
@@ -79,7 +74,7 @@ class MTAsyncLayer: CALayer {
     }
 
     private func _displayAsync(_ async: Bool) {
-        guard let mydelegate = delegate as? MTAsyncLayerDelegate else { return }
+        guard let mydelegate = delegate as? YYAsyncLayerDelegate else { return }
         let task = mydelegate.newAsyncDisplayTask
         if task.display == nil {
             task.willDisplay?(self)
@@ -103,7 +98,7 @@ class MTAsyncLayer: CALayer {
                 var image = contents
                 contents = nil
                 if image != nil {
-                    MTAsyncLayerGetReleaseQueue.async {
+                    YYAsyncLayerGetReleaseQueue.async {
                         image = nil
                     }
                 }
@@ -111,7 +106,7 @@ class MTAsyncLayer: CALayer {
                 return
             }
 
-            MTAsyncLayerGetDisplayQueue.async {
+            YYAsyncLayerGetDisplayQueue.async {
                 if isCancelled() {
                     return
                 }
@@ -195,10 +190,15 @@ class MTAsyncLayer: CALayer {
     }
 }
 
+protocol YYAsyncLayerDelegate {
+    /// This method is called to return a new display task when the layer's contents need update.
+    var newAsyncDisplayTask: YYAsyncLayerDisplayTask { get }
+}
+
 /**
- A display task used by MTAsyncLayer to render the contents in background queue.
+ A display task used by YYAsyncLayer to render the contents in background queue.
  */
-class MTAsyncLayerDisplayTask {
+class YYAsyncLayerDisplayTask {
     
     /**
      This block will be called before the asynchronous drawing begins.

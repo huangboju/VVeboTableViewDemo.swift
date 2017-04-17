@@ -1,6 +1,6 @@
 //
 //  MTSentinel.swift
-//  MTAsyncLayer
+//  YYAsyncLayer
 //
 //  Created by 伯驹 黄 on 2017/4/11.
 //  Copyright © 2017年 伯驹 黄. All rights reserved.
@@ -13,7 +13,7 @@ import UIKit
  YYSentinel is a thread safe incrementing counter.
  It may be used in some multi-threaded situation.
  */
-class MTSentinel {
+class YYSentinel {
     private var _value: Int32 = 0
     /// Returns the current value of the counter.
     public var value: Int32 {

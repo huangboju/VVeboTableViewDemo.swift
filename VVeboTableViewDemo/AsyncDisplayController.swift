@@ -76,7 +76,7 @@ class AsyncDisplayCell: UITableViewCell {
 }
 
 class AsyncDisplayView: UIView {
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.red
@@ -91,18 +91,18 @@ class AsyncDisplayView: UIView {
     func contentNeedUpdate() {
         layer.setNeedsDisplay()
     }
-    
+
     override class var layerClass: AnyClass {
-        return MTAsyncLayer.self
+        return YYAsyncLayer.self
     }
 }
 
-extension AsyncDisplayView: MTAsyncLayerDelegate {
-    var newAsyncDisplayTask: MTAsyncLayerDisplayTask {
-        let task = MTAsyncLayerDisplayTask()
+extension AsyncDisplayView: YYAsyncLayerDelegate {
+    var newAsyncDisplayTask: YYAsyncLayerDisplayTask {
+        let task = YYAsyncLayerDisplayTask()
 
         task.willDisplay = { layer in
-        
+
         }
 
         task.display = { context, size, isCancelled in
@@ -111,7 +111,7 @@ extension AsyncDisplayView: MTAsyncLayerDelegate {
         }
 
         task.didDisplay = { layer, flag in
-        
+
         }
 
         return task

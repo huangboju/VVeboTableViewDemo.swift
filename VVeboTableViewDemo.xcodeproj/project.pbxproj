@@ -16,9 +16,9 @@
 		D812CF791E9F82BD00066344 /* VVeboTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D812CF721E9F82BD00066344 /* VVeboTableViewCell.swift */; };
 		D812CF7A1E9F82BD00066344 /* VVeboTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D812CF731E9F82BD00066344 /* VVeboTableView.swift */; };
 		D812CF7C1E9F834500066344 /* VVeboController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D812CF7B1E9F834500066344 /* VVeboController.swift */; };
-		D814B2981E9E183A0000B60C /* MTAsyncLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D814B2951E9E183A0000B60C /* MTAsyncLayer.swift */; };
-		D814B2991E9E183A0000B60C /* MTSentinel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D814B2961E9E183A0000B60C /* MTSentinel.swift */; };
-		D814B29A1E9E183A0000B60C /* MTTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D814B2971E9E183A0000B60C /* MTTransaction.swift */; };
+		D814B2981E9E183A0000B60C /* YYAsyncLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D814B2951E9E183A0000B60C /* YYAsyncLayer.swift */; };
+		D814B2991E9E183A0000B60C /* YYSentinel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D814B2961E9E183A0000B60C /* YYSentinel.swift */; };
+		D814B29A1E9E183A0000B60C /* YYTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D814B2971E9E183A0000B60C /* YYTransaction.swift */; };
 		D85621A91E84F81B008EFB1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85621A81E84F81B008EFB1B /* AppDelegate.swift */; };
 		D85621AB1E84F81B008EFB1B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85621AA1E84F81B008EFB1B /* ViewController.swift */; };
 		D85621AE1E84F81B008EFB1B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D85621AC1E84F81B008EFB1B /* Main.storyboard */; };
@@ -71,9 +71,9 @@
 		D812CF721E9F82BD00066344 /* VVeboTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VVeboTableViewCell.swift; sourceTree = "<group>"; };
 		D812CF731E9F82BD00066344 /* VVeboTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VVeboTableView.swift; sourceTree = "<group>"; };
 		D812CF7B1E9F834500066344 /* VVeboController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VVeboController.swift; sourceTree = "<group>"; };
-		D814B2951E9E183A0000B60C /* MTAsyncLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTAsyncLayer.swift; sourceTree = "<group>"; };
-		D814B2961E9E183A0000B60C /* MTSentinel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTSentinel.swift; sourceTree = "<group>"; };
-		D814B2971E9E183A0000B60C /* MTTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTTransaction.swift; sourceTree = "<group>"; };
+		D814B2951E9E183A0000B60C /* YYAsyncLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYAsyncLayer.swift; sourceTree = "<group>"; };
+		D814B2961E9E183A0000B60C /* YYSentinel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYSentinel.swift; sourceTree = "<group>"; };
+		D814B2971E9E183A0000B60C /* YYTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYTransaction.swift; sourceTree = "<group>"; };
 		D85621A51E84F81B008EFB1B /* VVeboTableViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VVeboTableViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D85621A81E84F81B008EFB1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D85621AA1E84F81B008EFB1B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -149,9 +149,9 @@
 		D814B2941E9E183A0000B60C /* MTAsyncLayer */ = {
 			isa = PBXGroup;
 			children = (
-				D814B2951E9E183A0000B60C /* MTAsyncLayer.swift */,
-				D814B2961E9E183A0000B60C /* MTSentinel.swift */,
-				D814B2971E9E183A0000B60C /* MTTransaction.swift */,
+				D814B2951E9E183A0000B60C /* YYAsyncLayer.swift */,
+				D814B2961E9E183A0000B60C /* YYSentinel.swift */,
+				D814B2971E9E183A0000B60C /* YYTransaction.swift */,
 			);
 			path = MTAsyncLayer;
 			sourceTree = "<group>";
@@ -335,12 +335,12 @@
 				D88DC5B91E9B964100F8FA1A /* LazyController.swift in Sources */,
 				D88DC5B71E9B937700F8FA1A /* LazyTableView.swift in Sources */,
 				D812CF791E9F82BD00066344 /* VVeboTableViewCell.swift in Sources */,
-				D814B29A1E9E183A0000B60C /* MTTransaction.swift in Sources */,
+				D814B29A1E9E183A0000B60C /* YYTransaction.swift in Sources */,
 				D812CF741E9F82BD00066344 /* DataPrenstenter.m in Sources */,
 				D812CF751E9F82BD00066344 /* NSString+Additions.m in Sources */,
 				D812CF7C1E9F834500066344 /* VVeboController.swift in Sources */,
-				D814B2991E9E183A0000B60C /* MTSentinel.swift in Sources */,
-				D814B2981E9E183A0000B60C /* MTAsyncLayer.swift in Sources */,
+				D814B2991E9E183A0000B60C /* YYSentinel.swift in Sources */,
+				D814B2981E9E183A0000B60C /* YYAsyncLayer.swift in Sources */,
 				D812CF771E9F82BD00066344 /* UIScreen+Additions.swift in Sources */,
 				D812CF7A1E9F82BD00066344 /* VVeboTableView.swift in Sources */,
 				D812CF781E9F82BD00066344 /* VVeboLabel.swift in Sources */,
