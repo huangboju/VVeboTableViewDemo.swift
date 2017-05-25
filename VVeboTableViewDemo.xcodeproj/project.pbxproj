@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D8033DDC1ED67D4E008E80B7 /* CRStockRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8033DDB1ED67D4E008E80B7 /* CRStockRender.swift */; };
+		D8033DDE1ED67D6F008E80B7 /* CRStock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8033DDD1ED67D6F008E80B7 /* CRStock.swift */; };
+		D8033DE01ED6B271008E80B7 /* StockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8033DDF1ED6B271008E80B7 /* StockController.swift */; };
 		D812CF661E9F702500066344 /* AsyncDisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D812CF651E9F702500066344 /* AsyncDisplayController.swift */; };
 		D812CF741E9F82BD00066344 /* DataPrenstenter.m in Sources */ = {isa = PBXBuildFile; fileRef = D812CF6A1E9F82BD00066344 /* DataPrenstenter.m */; };
 		D812CF751E9F82BD00066344 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = D812CF6D1E9F82BD00066344 /* NSString+Additions.m */; };
@@ -60,6 +63,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D8033DDB1ED67D4E008E80B7 /* CRStockRender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRStockRender.swift; sourceTree = "<group>"; };
+		D8033DDD1ED67D6F008E80B7 /* CRStock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRStock.swift; sourceTree = "<group>"; };
+		D8033DDF1ED6B271008E80B7 /* StockController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockController.swift; sourceTree = "<group>"; };
 		D812CF651E9F702500066344 /* AsyncDisplayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncDisplayController.swift; sourceTree = "<group>"; };
 		D812CF691E9F82BD00066344 /* DataPrenstenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataPrenstenter.h; sourceTree = "<group>"; };
 		D812CF6A1E9F82BD00066344 /* DataPrenstenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataPrenstenter.m; sourceTree = "<group>"; };
@@ -113,6 +119,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D8033DDA1ED67D1A008E80B7 /* Concurrency */ = {
+			isa = PBXGroup;
+			children = (
+				D8033DDB1ED67D4E008E80B7 /* CRStockRender.swift */,
+				D8033DDD1ED67D6F008E80B7 /* CRStock.swift */,
+				D8033DDF1ED6B271008E80B7 /* StockController.swift */,
+			);
+			path = Concurrency;
+			sourceTree = "<group>";
+		};
 		D812CF681E9F82BD00066344 /* VVebo */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +194,7 @@
 		D85621A71E84F81B008EFB1B /* VVeboTableViewDemo */ = {
 			isa = PBXGroup;
 			children = (
+				D8033DDA1ED67D1A008E80B7 /* Concurrency */,
 				D812CF681E9F82BD00066344 /* VVebo */,
 				D814B2941E9E183A0000B60C /* MTAsyncLayer */,
 				D8C681F01E87AA2F00367414 /* Resources */,
@@ -332,14 +349,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8033DE01ED6B271008E80B7 /* StockController.swift in Sources */,
 				D88DC5B91E9B964100F8FA1A /* LazyController.swift in Sources */,
 				D88DC5B71E9B937700F8FA1A /* LazyTableView.swift in Sources */,
 				D812CF791E9F82BD00066344 /* VVeboTableViewCell.swift in Sources */,
 				D814B29A1E9E183A0000B60C /* YYTransaction.swift in Sources */,
 				D812CF741E9F82BD00066344 /* DataPrenstenter.m in Sources */,
+				D8033DDC1ED67D4E008E80B7 /* CRStockRender.swift in Sources */,
 				D812CF751E9F82BD00066344 /* NSString+Additions.m in Sources */,
 				D812CF7C1E9F834500066344 /* VVeboController.swift in Sources */,
 				D814B2991E9E183A0000B60C /* YYSentinel.swift in Sources */,
+				D8033DDE1ED67D6F008E80B7 /* CRStock.swift in Sources */,
 				D814B2981E9E183A0000B60C /* YYAsyncLayer.swift in Sources */,
 				D812CF771E9F82BD00066344 /* UIScreen+Additions.swift in Sources */,
 				D812CF7A1E9F82BD00066344 /* VVeboTableView.swift in Sources */,

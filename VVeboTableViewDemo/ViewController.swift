@@ -22,6 +22,9 @@ class ViewController: UIViewController {
         ],
         [
             AsyncDisplayController.self
+        ],
+        [
+            StockController.self
         ]
     ]
 
