@@ -22,6 +22,7 @@
 		D814B2981E9E183A0000B60C /* YYAsyncLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D814B2951E9E183A0000B60C /* YYAsyncLayer.swift */; };
 		D814B2991E9E183A0000B60C /* YYSentinel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D814B2961E9E183A0000B60C /* YYSentinel.swift */; };
 		D814B29A1E9E183A0000B60C /* YYTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D814B2971E9E183A0000B60C /* YYTransaction.swift */; };
+		D81992801ED92D6D0008CD7D /* DownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D819927F1ED92D6D0008CD7D /* DownloadOperation.swift */; };
 		D85621A91E84F81B008EFB1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85621A81E84F81B008EFB1B /* AppDelegate.swift */; };
 		D85621AB1E84F81B008EFB1B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85621AA1E84F81B008EFB1B /* ViewController.swift */; };
 		D85621AE1E84F81B008EFB1B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D85621AC1E84F81B008EFB1B /* Main.storyboard */; };
@@ -80,6 +81,7 @@
 		D814B2951E9E183A0000B60C /* YYAsyncLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYAsyncLayer.swift; sourceTree = "<group>"; };
 		D814B2961E9E183A0000B60C /* YYSentinel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYSentinel.swift; sourceTree = "<group>"; };
 		D814B2971E9E183A0000B60C /* YYTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYTransaction.swift; sourceTree = "<group>"; };
+		D819927F1ED92D6D0008CD7D /* DownloadOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadOperation.swift; sourceTree = "<group>"; };
 		D85621A51E84F81B008EFB1B /* VVeboTableViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VVeboTableViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D85621A81E84F81B008EFB1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D85621AA1E84F81B008EFB1B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -172,6 +174,14 @@
 			path = MTAsyncLayer;
 			sourceTree = "<group>";
 		};
+		D819927E1ED92D560008CD7D /* DownloadOperation */ = {
+			isa = PBXGroup;
+			children = (
+				D819927F1ED92D6D0008CD7D /* DownloadOperation.swift */,
+			);
+			path = DownloadOperation;
+			sourceTree = "<group>";
+		};
 		D856219C1E84F81B008EFB1B = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +204,7 @@
 		D85621A71E84F81B008EFB1B /* VVeboTableViewDemo */ = {
 			isa = PBXGroup;
 			children = (
+				D819927E1ED92D560008CD7D /* DownloadOperation */,
 				D8033DDA1ED67D1A008E80B7 /* Concurrency */,
 				D812CF681E9F82BD00066344 /* VVebo */,
 				D814B2941E9E183A0000B60C /* MTAsyncLayer */,
@@ -364,6 +375,7 @@
 				D812CF771E9F82BD00066344 /* UIScreen+Additions.swift in Sources */,
 				D812CF7A1E9F82BD00066344 /* VVeboTableView.swift in Sources */,
 				D812CF781E9F82BD00066344 /* VVeboLabel.swift in Sources */,
+				D81992801ED92D6D0008CD7D /* DownloadOperation.swift in Sources */,
 				D812CF761E9F82BD00066344 /* String+Additions.swift in Sources */,
 				D85621AB1E84F81B008EFB1B /* ViewController.swift in Sources */,
 				D85621A91E84F81B008EFB1B /* AppDelegate.swift in Sources */,

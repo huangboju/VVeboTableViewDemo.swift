@@ -15,7 +15,7 @@ class CRStockRender {
     init(stock: CRStock) {
         _stock = stock
     }
-    
+
     func placeholderImage(of size: CGSize) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
 
