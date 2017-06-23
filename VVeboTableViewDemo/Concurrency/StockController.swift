@@ -52,7 +52,7 @@ class StockController: UIViewController {
             }
 
             if operation.isCancelled { return }
-    
+
             OperationQueue.main.addOperation {
                 self._stocks = datas
                 self.tableView.reloadData()
