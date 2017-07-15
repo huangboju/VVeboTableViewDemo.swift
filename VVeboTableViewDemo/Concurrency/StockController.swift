@@ -58,7 +58,7 @@ class StockController: UIViewController {
                 self.tableView.reloadData()
             }
         }
-        
+
         _queue.addOperation(operation)
     }
 }
