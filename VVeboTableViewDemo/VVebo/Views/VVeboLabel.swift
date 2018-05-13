@@ -58,6 +58,7 @@ func TopicRegularExpression() -> NSRegularExpression? {
 }
 
 class VVeboLabel : UIView {
+    @objc
     public var text: String? {
         willSet {
             textDidSet(newValue, oldText: text)
