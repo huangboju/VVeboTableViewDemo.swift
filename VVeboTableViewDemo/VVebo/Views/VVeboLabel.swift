@@ -147,7 +147,7 @@ class VVeboLabel : UIView {
                 let hasImage = labelImageView.image != nil
                 if hasImage && currentRange.location != -1 && currentRange.location >= match.range.location && currentRange.length + currentRange.location <= match.range.length + match.range.location {
                     // 不需要特殊处理的字符串
-                    coloredString.addAttribute(NSForegroundColorAttributeName, value: UIColor(r: 224, g: 44, b: 86).cgColor, range: match.range)
+                    coloredString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor(r: 224, g: 44, b: 86).cgColor, range: match.range)
 
                     // ???: touchEnd中已处理，这里是否不需要
 //                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
@@ -157,7 +157,7 @@ class VVeboLabel : UIView {
                 } else {
                     // 正则中定义需要特殊处理的字符串
                     guard let highlightColor = highlightColors[key] else { continue }
-                    coloredString.addAttribute(NSForegroundColorAttributeName, value: highlightColor, range: match.range)
+                    coloredString.addAttribute(NSAttributedStringKey.foregroundColor, value: highlightColor, range: match.range)
                 }
             }
         }
@@ -240,7 +240,7 @@ class VVeboLabel : UIView {
             var maximumLineHeight = minimumLineHeight
             var linespace = self.lineSpace
 
-            let font = CTFontCreateWithName(self.font.fontName as CFString?, self.font.pointSize, nil)
+            let font = CTFontCreateWithName((self.font.fontName as CFString?)!, self.font.pointSize, nil)
 
             var lineBreakMode = CTLineBreakMode.byWordWrapping
             var alignment = CTTextAlignmentFromUITextAlignment(self.textAlignment)
@@ -257,10 +257,10 @@ class VVeboLabel : UIView {
 
             let style = CTParagraphStyleCreate(alignmentSetting, alignmentSetting.count)
 
-            let attributes: [String: Any] = [
-                NSFontAttributeName: font,
-                NSForegroundColorAttributeName: self.textColor.cgColor,
-                NSParagraphStyleAttributeName: style
+            let attributes: [NSAttributedStringKey: Any] = [
+                .font: font,
+                .foregroundColor: self.textColor.cgColor,
+                .paragraphStyle: style
             ]
 
             //Create attributed string, with applied syntax highlighting

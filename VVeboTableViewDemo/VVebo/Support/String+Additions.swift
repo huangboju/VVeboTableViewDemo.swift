@@ -11,7 +11,7 @@ import UIKit
 extension String {
 
     var length: Int {
-        return characters.count
+        return count
     }
 
     func index(of substring: String) -> Int {
@@ -30,17 +30,17 @@ extension String {
     
     func substring(from: Int) -> String {
         let fromIndex = index(from: from)
-        return substring(from: fromIndex)
+        return String(self[fromIndex...])
     }
     
     func substring(to: Int) -> String {
-        return substring(to: index(from: to))
+        return String(self[..<index(from: to)])
     }
     
     func substr(with range: NSRange) -> String {
         let start = index(startIndex, offsetBy: range.location)
-        let end = index(endIndex, offsetBy: range.location + range.length - characters.count)
-        return substring(with: start ..< end)
+        let end = index(endIndex, offsetBy: range.location + range.length - count)
+        return String(self[start..<end])
     }
 
     func sizeWithConstrained(to size: CGSize, fromFont font1: UIFont, lineSpace: CGFloat) -> CGSize {
@@ -48,7 +48,7 @@ extension String {
         var maximumLineHeight = minimumLineHeight
         var linespace = lineSpace
 
-        let font = CTFontCreateWithName(font1.fontName as CFString?, font1.pointSize, nil)
+        let font = CTFontCreateWithName((font1.fontName as CFString?)!, font1.pointSize, nil)
         var lineBreakMode = CTLineBreakMode.byWordWrapping
         //Apply paragraph settings
         var alignment = CTTextAlignment.left
@@ -62,9 +62,9 @@ extension String {
         ]
 
         let style = CTParagraphStyleCreate(alignmentSetting, alignmentSetting.count)
-        let attributes: [String: Any] = [
-            NSFontAttributeName: font,
-            NSParagraphStyleAttributeName: style
+        let attributes: [NSAttributedStringKey: Any] = [
+            .font: font,
+            .paragraphStyle: style
         ]
 
         let string = NSMutableAttributedString(string: self, attributes: attributes)
@@ -85,7 +85,7 @@ extension String {
 
         //Determine default text color
         //Set line height, font, color and break mode
-        let font1 = CTFontCreateWithName(font.fontName as CFString?, font.pointSize, nil)
+        let font1 = CTFontCreateWithName((font.fontName as CFString?)!, font.pointSize, nil)
         //Apply paragraph settings
         var minimumLineHeight = font.pointSize
         var maximumLineHeight = minimumLineHeight + 10
@@ -104,10 +104,10 @@ extension String {
 
         let style = CTParagraphStyleCreate(alignmentSetting, alignmentSetting.count)
 
-        let attributes: [String: Any] = [
-            NSFontAttributeName: font1,
-            NSForegroundColorAttributeName: textColor.cgColor,
-            NSParagraphStyleAttributeName: style
+        let attributes: [NSAttributedStringKey: Any] = [
+            .font: font1,
+            .foregroundColor: textColor.cgColor,
+            .paragraphStyle: style
         ]
         //Create path to work with a frame with applied margins
         let path = CGMutablePath()
